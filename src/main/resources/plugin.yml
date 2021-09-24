@@ -1,0 +1,7 @@
+name: PlayersBio
+version: '${project.version}'
+main: jp.yude.playersbio.playersbio.PlayersBio
+api-version: 1.17
+authors: [ yude ]
+description: Biography for Minecraft players
+website: https://github.com/yude/PlayersBio
