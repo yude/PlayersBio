@@ -1,0 +1,6 @@
+host: 127.0.0.1
+db_port: 3306
+database: PlayersBio
+user: minecraft
+password: minecraft
+web_port: 40100
