@@ -5,3 +5,8 @@ api-version: 1.17
 authors: [ yude ]
 description: Biography for Minecraft players
 website: https://github.com/yude/PlayersBio
+commands:
+  bio:
+    description: Set your biography
+    usage: /<command>
+    permission: playersbio.bio
