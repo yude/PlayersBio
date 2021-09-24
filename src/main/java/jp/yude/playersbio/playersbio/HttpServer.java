@@ -45,7 +45,7 @@ public class HttpServer {
                 if (results.next()) {
                     return results.getString("bio");
                 } else {
-                    return "not_found";
+                    return "";
                 }
             } else {
                 return "invalid_uuid";
