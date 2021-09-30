@@ -1,12 +1,9 @@
 package jp.yude.playersbio.playersbio;
 
-
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -51,20 +48,27 @@ public class CommandBio implements CommandExecutor {
                 try {
                     PreparedStatement stmt_search = connection.prepareStatement(sql_search);
                     ResultSet results_search = stmt_search.executeQuery();
+                    // Get all args and combine them into single args / string
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 0; i < args.length; i++) {
+                        sb.append(args[i]).append(" ");
+                    }
+                    String allArgs = sb.toString().trim();
+
                     // Update data
                     if (results_search.next()) {
                         String sql = "UPDATE `players` SET `bio` = ?;";
                         PreparedStatement stmt = connection.prepareStatement(sql);
-                        stmt.setString(1, args[0]);
+                        stmt.setString(1, allArgs);
                         stmt.executeUpdate();
-                        player.sendMessage("§7[PlayersBio] §fあなたのバイオグラフィーを「" + args[0] + "」に更新しました。");
+                        player.sendMessage("§7[PlayersBio] §fあなたのバイオグラフィーを「" + allArgs + "」に更新しました。");
                     } else {
                         String sql = "INSERT INTO `players` (uuid, bio) VALUES (?, ?);";
                         PreparedStatement stmt = connection.prepareStatement(sql);
                         stmt.setString(1, player.getUniqueId().toString());
-                        stmt.setString(2, args[0]);
+                        stmt.setString(2, allArgs);
                         stmt.executeUpdate();
-                        player.sendMessage("§7[PlayersBio] §fあなたのバイオグラフィーを「" + args[0] + "」に更新しました。");
+                        player.sendMessage("§7[PlayersBio] §fあなたのバイオグラフィーを「" + allArgs + "」に更新しました。");
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
